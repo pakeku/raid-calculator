@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .container {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>RAID Configuration Selector</h2>
+        <label for="driveCount">Number of Drives:</label>
+        <input type="number" id="driveCount" min="1" value="3">
+        <br>
+        <br>
+        <input type="checkbox" id="raid0"> RAID 0 (Striping)
+        <br>
+        <input type="checkbox" id="raid1"> RAID 1 (Mirroring)
+        <br>
+        <input type="checkbox" id="raid5"> RAID 5 (Striping with Parity)
+        <br>
+        <input type="checkbox" id="raid10"> RAID 10 (Combination of RAID 1 and RAID 0)
+        <br>
+        <br>
+        <button onclick="checkRAIDConfigurations()">Check RAID Configurations</button>
+        <br>
+        <br>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function checkRAIDConfigurations() {
+            const driveCount = parseInt(document.getElementById("driveCount").value);
+            const resultElement = document.getElementById("result");
+            resultElement.innerHTML = "";
+
+            if (driveCount >= 2) {
+                if (driveCount % 2 === 0) {
+                    resultElement.innerHTML += "RAID 0 (Striping) is applicable<br>";
+                    resultElement.innerHTML += "RAID 1 (Mirroring) is applicable<br>";
+                }
+                if (driveCount >= 3) {
+                    resultElement.innerHTML += "RAID 5 (Striping with Parity) is applicable<br>";
+                }
+                if (driveCount >= 4 && driveCount % 2 === 0) {
+                    resultElement.innerHTML += "RAID 10 (Combination of RAID 1 and RAID 0) is applicable<br>";
+                }
+            } else {
+                resultElement.innerHTML = "Insufficient drives for RAID configurations.";
+            }
+        }
+    </script>
+</body>
+</html>
